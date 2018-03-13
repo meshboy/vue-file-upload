@@ -2,9 +2,122 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>File Upload to Server</title>
+    <!--import assets -->
+    <script src="assets/js/vue.js"></script>
+    <script src="file-upload.js"></script>
+
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="assets/main.css"/>
 </head>
 <body>
+<div class="row" id="app">
+   <div class="col-lg-12">
+       <div class="col-lg-8 col-lg-offset-2">
+           <div class="panel text-center">
+               <div class="panel-heading">
+                   <h1>File Upload</h1>
+               </div>
+               <div class="panel-body">
+                   <form role="form">
 
+                       <label>Select image</label>
+                       <div class="form-group">
+                           <img style="cursor: pointer"
+                                width="150"
+                                height="150"
+                                :src="image"
+                                id="imageSelector"
+                                @click="imagePicker()"
+                                class="img-circle"/>
+
+                           <input type="file"
+                                  name="file"
+                                  class="fileInput"
+                                  accept="image/*"
+                                  @change="onFileChange($event)">
+                       </div>
+
+                       <div class="form-group">
+                           <button class="btn btn-primary"
+                                    :disabled="file === null"
+                                    @click.prevent="uploadImage()">
+                               Upload Selected Image To Server
+                           </button>
+                       </div>
+                   </form>
+               </div>
+           </div>
+
+           <div class="panel panel-default">
+               <div class="panel-heading">
+                   File Details
+               </div>
+               <div class="panel-body">
+                   <section v-if="file !== null">
+                       <h4>Name: {{ file.name }}</h4>
+                       <h4>Size: {{ file.size }}</h4>
+                       <h4>Type: {{ file.type }}</h4>
+                       <h4>Last Modified: {{ file.lastModifiedDate }}</h4>
+                   </section>
+                   <h4 v-else>
+                       No File Uploaded
+                   </h4>
+               </div>
+           </div>
+
+           <div class="panel panel-default">
+               <div class="panel-heading">
+                   Upload Progress
+               </div>
+               <div class="panel-body">
+                   <div class="progress">
+                       <div class="progress">
+                           <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                                :style="{width: (startCount / endCount) * 100 + '%'}">
+                               {{ startCount }} / {{ endCount}}
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
 </body>
+<script>
+
+  const vue = new Vue({
+    el: '#app',
+    data: {
+      startCount: 0,
+      endCount: 100
+    },
+    mixins: [fileUploadMixin],
+    created() {
+      // set default image if no image has been selected
+      this.image = 'assets/image/default_image.png';
+    },
+    methods:{
+      uploadImage(){
+
+        // send base64 to server in place of file
+        const fileString =  this.convertToBase64(this.file);
+
+        // send file to server
+        const formData = new FormData();
+        formData.append('file', this.file);
+
+        // simulate file upload to server
+        while(this.startCount < 100){
+
+          this.startCount += 10;
+        }
+      }
+    }
+  });
+
+</script>
+<script src="assets/jquery/jquery.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </html>

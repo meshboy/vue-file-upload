@@ -1,0 +1,6 @@
+.fileInput {
+    display: block;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
