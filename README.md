@@ -3,7 +3,7 @@
 This project describes how file can be selected and uploaded to server
 
 ## Project Demo
-[file upload demo] (https://meshboy.github.io/vue-file-upload)
+[file upload demo](https://meshboy.github.io/vue-file-upload)
 
 
 Version 1.0
