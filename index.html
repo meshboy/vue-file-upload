@@ -102,7 +102,11 @@
       uploadImage(){
 
         // send base64 to server in place of file
-        const fileString =  this.convertToBase64(this.file);
+        this.convertToBase64(this.file)
+          .then(fileString => {
+
+            // TODO: process base64 file
+          })
 
         // send file to server
         const formData = new FormData();
