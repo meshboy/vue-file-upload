@@ -14,7 +14,7 @@ Include the fileUploadMixin in your mixins
 mixins: [fileUploadMixin]
 ```
 
-```
+```js
 const vue = new Vue({
     el: '#app',
     data: {
