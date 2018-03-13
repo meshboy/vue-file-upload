@@ -10,7 +10,7 @@ Version 1.0
 Usage
 
 Include the fileUploadMixin in your mixins
-```
+```js
 mixins: [fileUploadMixin]
 ```
 
